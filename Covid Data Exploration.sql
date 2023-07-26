@@ -1,12 +1,12 @@
 Select *
 From
-	PortfolioProject.dbo.CovidDeaths$
+	PortfolioProject.dbo.CovidDeaths
 Where continent is not null
 Order By 3,4
 
 --Select *
 --From
---	PortfolioProject.dbo.CovidVaccinations$
+--	PortfolioProject.dbo.CovidVaccinations
 --Order By 3, 4
 
 Select 
@@ -17,7 +17,7 @@ Select
 	total_deaths,
 	population
 From
-	PortfolioProject.dbo.CovidDeaths$
+	PortfolioProject.dbo.CovidDeaths
 Order By 1, 2
 
 
@@ -31,7 +31,7 @@ Select
 	total_deaths,
 	(total_deaths/total_cases)*100 AS DeathPercentage
 From
-	PortfolioProject.dbo.CovidDeaths$
+	PortfolioProject.dbo.CovidDeaths
 Where location like '%states%'
 Order By 1, 2
 
@@ -45,7 +45,7 @@ Select
 	total_cases,
 	(total_cases/population)*100 AS InfectionPercentage
 From
-	PortfolioProject.dbo.CovidDeaths$
+	PortfolioProject.dbo.CovidDeaths
 Where location like '%states%'
 Order By 1, 2
 
@@ -58,7 +58,7 @@ Select
 	Max(total_cases) AS HighestInfectionCount,
 	Max((total_cases/population))*100 AS InfectionPercentage
 From
-	PortfolioProject.dbo.CovidDeaths$
+	PortfolioProject.dbo.CovidDeaths
 Group By location, population
 Order By InfectionPercentage Desc
 
@@ -69,7 +69,7 @@ Select
 	Location,
 	MAX(cast(total_deaths as int)) as TotalDeathCount
 From
-	PortfolioProject.dbo.CovidDeaths$
+	PortfolioProject.dbo.CovidDeaths
 Where continent is not null
 Group By location
 Order By TotalDeathCount Desc
@@ -80,7 +80,7 @@ Select
 	continent,
 	MAX(cast(total_deaths as int)) as TotalDeathCount
 From
-	PortfolioProject.dbo.CovidDeaths$
+	PortfolioProject.dbo.CovidDeaths
 Where continent is not null
 Group By continent
 Order By TotalDeathCount Desc
@@ -93,7 +93,7 @@ Select
 	Sum(cast(new_deaths as int)) as total_deaths,
 	Sum(cast(new_deaths as int))/ Sum(new_cases)*100 as DeathPercentage
 From
-	PortfolioProject.dbo.CovidDeaths$
+	PortfolioProject.dbo.CovidDeaths
 --Where location like '%states%'
 Where continent is not null
 --Group By date
@@ -112,8 +112,8 @@ Select
 	Order by dea.location, dea.date) as RollingPeopleVaccinated,
 	(RollingPeopleVaccinated/population)*100
 From 
-	PortfolioProject.dbo.CovidDeaths$ as dea
-Join PortfolioProject.dbo.CovidVaccinations$ vac
+	PortfolioProject.dbo.CovidDeaths as dea
+Join PortfolioProject.dbo.CovidVaccinations vac
 	On dea.location = vac.location
 	and dea.date = vac.date
 where dea.continent is not null
@@ -135,8 +135,8 @@ Select
 	Order by dea.location, dea.date) as RollingPeopleVaccinated
 	--(RollingPeopleVaccinated/population)*100
 From 
-	PortfolioProject.dbo.CovidDeaths$ as dea
-Join PortfolioProject.dbo.CovidVaccinations$ vac
+	PortfolioProject.dbo.CovidDeaths as dea
+Join PortfolioProject.dbo.CovidVaccinations vac
 	On dea.location = vac.location
 	and dea.date = vac.date
 where dea.continent is not null
@@ -172,8 +172,8 @@ Select
 	Order by dea.location, dea.date) as RollingPeopleVaccinated
 	--(RollingPeopleVaccinated/population)*100
 From 
-	PortfolioProject.dbo.CovidDeaths$ as dea
-Join PortfolioProject.dbo.CovidVaccinations$ vac
+	PortfolioProject.dbo.CovidDeaths as dea
+Join PortfolioProject.dbo.CovidVaccinations vac
 	On dea.location = vac.location
 	and dea.date = vac.date
 where dea.continent is not null
@@ -198,8 +198,8 @@ Select
 	Order by dea.location, dea.date) as RollingPeopleVaccinated
 	--(RollingPeopleVaccinated/population)*100
 From 
-	PortfolioProject.dbo.CovidDeaths$ as dea
-Join PortfolioProject.dbo.CovidVaccinations$ vac
+	PortfolioProject.dbo.CovidDeaths as dea
+Join PortfolioProject.dbo.CovidVaccinations vac
 	On dea.location = vac.location
 	and dea.date = vac.date
 where dea.continent is not null
