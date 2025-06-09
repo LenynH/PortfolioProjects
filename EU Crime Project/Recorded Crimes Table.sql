@@ -44,19 +44,27 @@ DROP DATAFLOW;
 ALTER TABLE crime_1998_2007
 ADD COLUMN ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
 
--- First Table End Product
-SELECT *
-FROM
-	crime_1998_2007
-ORDER BY TIME_PERIOD;
-    
-SELECT 
-    iccs, geo, SUM(OBS_VALUE) AS total_98_to_07
-FROM
-    crime_1998_2007
-WHERE NOT iccs = 'Total'
-GROUP BY iccs , geo
-ORDER BY iccs, geo;
+-- Changing table name due to misrepresentation of data
+RENAME TABLE crime_1998_2007 TO crime_93_to_07;
+
+-- Removal of more redundant data
+ALTER TABLE crime_93_to_07
+DROP freq,
+DROP unit;
+
+DELETE FROM crime_93_to_07
+WHERE crime = 'Total';
+ 
+-- Renaming Columns for Clarity
+ALTER TABLE crime_93_to_07 
+RENAME COLUMN iccs TO crime, 
+RENAME COLUMN geo TO country, 
+RENAME COLUMN TIME_PERIOD TO recorded_year, 
+RENAME COLUMN OBS_VALUE TO count;
+
+-- Removal of Duplicate Values
+
+
     
 
 
