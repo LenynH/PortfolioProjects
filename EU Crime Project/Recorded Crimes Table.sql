@@ -51,9 +51,6 @@ RENAME TABLE crime_1998_2007 TO crime_93_to_07;
 ALTER TABLE crime_93_to_07
 DROP freq,
 DROP unit;
-
-DELETE FROM crime_93_to_07
-WHERE crime = 'Total';
  
 -- Renaming Columns for Clarity
 ALTER TABLE crime_93_to_07 
@@ -62,7 +59,24 @@ RENAME COLUMN geo TO country,
 RENAME COLUMN TIME_PERIOD TO recorded_year, 
 RENAME COLUMN OBS_VALUE TO count;
 
--- Removal of Duplicate Values
+-- Removing Unncessary Values
+DELETE FROM crime_93_to_07
+WHERE crime = 'Total';
+
+-- Adjusting Primary Key 
+ALTER TABLE crime_93_to_07
+MODIFY ID INT NOT NULL;
+
+ALTER TABLE crime_93_to_07
+DROP PRIMARY KEY;
+
+ALTER TABLE crime_93_to_07
+ADD PRIMARY KEY (ID, crime, country, recorded_year);
+
+ALTER TABLE crime_93_to_07
+MODIFY ID INT NOT NULL AUTO_INCREMENT;
+
+
 
 
     
